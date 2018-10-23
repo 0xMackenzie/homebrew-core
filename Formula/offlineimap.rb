@@ -63,7 +63,7 @@ class Offlineimap < Formula
           <string>/usr/bin:/bin:/usr/sbin:/sbin:#{HOMEBREW_PREFIX}/bin</string>
         </dict>
         <key>KeepAlive</key>
-        <false/>
+        <true/>
         <key>Label</key>
         <string>#{plist_name}</string>
         <key>ProgramArguments</key>
