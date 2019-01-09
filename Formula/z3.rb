@@ -1,37 +1,31 @@
 class Z3 < Formula
   desc "High-performance theorem prover"
   homepage "https://github.com/Z3Prover/z3"
-  url "https://github.com/Z3Prover/z3/releases/download/z3-4.7.1/z3-4.7.1.tar.gz"
-  sha256 "d165d68739ee15b4b73c0498225982d5a048e909e5e851b73fa6bcc7cfe228ab"
+  url "https://github.com/Z3Prover/z3/archive/z3-4.8.4.tar.gz"
+  sha256 "5a18fe616c2a30b56e5b2f5b9f03f405cdf2435711517ff70b076a01396ef601"
+  revision 1
   head "https://github.com/Z3Prover/z3.git"
 
   bottle do
     cellar :any
-    sha256 "963f7d4f21aa7dce826d7bcbbee51dd99415294f9995984d4cd0175062668782" => :mojave
-    sha256 "ff2c5ce221dafc1d79b7dda798d1ec6b3bb76e087ca6302180f18426571b623e" => :high_sierra
-    sha256 "9c3799db2677fdc562b9c99b91088e3f267552b316bd16e8331bf9eccb7598fb" => :sierra
-    sha256 "811f63f8ff66bb8b9eef07e787f8bdc528b3bb9e2da419b71d8d970dfdb47238" => :el_capitan
+    sha256 "120adbe521a09623f9f13357a42eaf50113aafeb8154650cb434287fd18b5c50" => :mojave
+    sha256 "2e3ca6c8ce76e9e5022f95f83bc30e7251fc55758a3ec7bb973f9887fc219822" => :high_sierra
+    sha256 "aa69aae9bef9513b46ba964dbeb69104584ec5ab515c4e7a622e4476672187fd" => :sierra
   end
 
-  option "without-python@2", "Build without python 2 support"
-
-  deprecated_option "with-python3" => "with-python"
-  deprecated_option "without-python" => "without-python@2"
-
-  depends_on "python@2" => :recommended
-  depends_on "python" => :optional
+  depends_on "python"
 
   def install
-    if build.without?("python") && build.without?("python@2")
-      odie "z3: --with-python must be specified when using --without-python@2"
-    end
+    xy = Language::Python.major_minor_version "python3"
+    system "python3", "scripts/mk_make.py",
+                      "--prefix=#{prefix}",
+                      "--python",
+                      "--pypkgdir=#{lib}/python#{xy}/site-packages",
+                      "--staticlib"
 
-    Language::Python.each_python(build) do |python, version|
-      system python, "scripts/mk_make.py", "--prefix=#{prefix}", "--python", "--pypkgdir=#{lib}/python#{version}/site-packages", "--staticlib"
-      cd "build" do
-        system "make"
-        system "make", "install"
-      end
+    cd "build" do
+      system "make"
+      system "make", "install"
     end
 
     # qprofdiff is not yet part of the source release (it will be as soon as a

@@ -4,12 +4,12 @@ class Octave < Formula
   url "https://ftp.gnu.org/gnu/octave/octave-4.4.1.tar.xz"
   mirror "https://ftpmirror.gnu.org/octave/octave-4.4.1.tar.xz"
   sha256 "7e4e9ac67ed809bd56768fb69807abae0d229f4e169db63a37c11c9f08215f90"
-  revision 2
+  revision 4
 
   bottle do
-    sha256 "2e63f1cb21581a5d90a04f0415dbad4602235ec95b2762541dda745a449611d2" => :mojave
-    sha256 "5e5aee2f8c6fafdf2c2c1c90a6810f6934e715a3ee5d2e020ab727af7dc4d96f" => :high_sierra
-    sha256 "7bf23ed7346f85ae895bb8627f4432479741f16977e2f597f13b07671ccfe4b3" => :sierra
+    sha256 "bfb57db4884645f00deab4ed773bd7f43bea2bb0e1a1264a320fbd0b296a7555" => :mojave
+    sha256 "09dd37878da04ff9deee3120e0f5a9ae663f0cadb7701e568e8df30f8d0f9f63" => :high_sierra
+    sha256 "4e47c8cbc4c69819e82c0acd4043b3e825581ff0948934de69b6054d48f3704b" => :sierra
   end
 
   head do
